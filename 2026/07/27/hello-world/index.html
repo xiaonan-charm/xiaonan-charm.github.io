@@ -140,7 +140,15 @@
 
       const theme = saveToLocal.get('theme')
     
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+          const hour = new Date().getHours()
+          const start = 6
+          const end = 18
+          const isNight =
+            start < end
+                ? hour < start || hour >= end
+                : hour >= start || hour < end
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
         
       
       const asideStatus = saveToLocal.get('aside-status')
